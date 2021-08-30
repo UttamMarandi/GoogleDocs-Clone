@@ -3,6 +3,7 @@ import Icon from "@material-tailwind/react/Icon";
 import Head from "next/head";
 import Header from "../components/Header";
 import Login from "../components/Login";
+import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
@@ -13,17 +14,30 @@ import firebase from "firebase";
 //Hooks
 import { useState } from "react";
 import { db } from "../firebase";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
 
 export default function Home() {
   const [session] = useSession();
   //useSession() tells if a user is logged in or not . undefined if not logged not in
-  const [showModal, setShowModal] = useState(false);
-  const [input, setInput] = useState(""); //keep track document name input
 
   //if session is false show Login page else show home page
   if (!session) return <Login />;
 
-  // When user clicks Enter , run create document function
+  const [showModal, setShowModal] = useState(false);
+  const [input, setInput] = useState(""); //keep track document name input
+
+  //snapshot contains the realitme content of the doc/collection that we are trying to access from db
+  //order by timestamp that we created while creating db and pushing the file name to db
+
+  const [snapshot] = useCollectionOnce(
+    db
+      .collection("userDocs")
+      .doc(session.user.email)
+      .collection("docs")
+      .orderBy("timestamp", "desc")
+  );
+
+  // When user clicks Enter , run createDocument function
   function createDocument() {
     //if the user has input no name , return
     if (!input) return;
@@ -118,6 +132,20 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* accessing snapshot is asynchronous so functional chaning 
+      doc.data gives the fields for each document*/}
+      <section>
+        {snapshot?.docs.map((doc) => {
+          return (
+            <DocumentRow
+              key={doc.id}
+              id={doc.id}
+              fileName={doc.data().fileName}
+              date={doc.data().timestamp}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 }
@@ -133,7 +161,7 @@ export async function getServerSideProps(context) {
       session,
     },
   };
-  //getServerSideProps returns an object conataining props key which contains the session
+  //getServerSideProps returns an object conataining props key which contains the session of current user logged in
   //we can pass props to Home componet to access it
 
   //But the best way is to wrap the whole app in _app.js in <Provider> component and pass session props as pageProps.session
