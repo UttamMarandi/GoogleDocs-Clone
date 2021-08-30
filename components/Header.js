@@ -1,9 +1,13 @@
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, signOut, signout, useSession } from "next-auth/client";
 
 function Header() {
   const [session] = useSession();
+  console.log("session", session);
+  //session logs undefined.
+  //so we cannot use useSession()
+  //What we need to use is use server side rendering which authenticates the user before loading the page.so all asynchronous code in handled before page is loaded
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white">
       <Button
@@ -37,14 +41,23 @@ function Header() {
       >
         <Icon name="apps" size="3xl" color="gray" />
       </Button>
-      <img
-        loading="lazy"
-        className="cursor-pointer h-10 w-10 rounded-full ml-2"
-        src={session.user?.image}
-        //session.user.image will not work as fetching image is asynchronous.so we need to use optional chaining
-        //session.user?.image
-        alt=""
-      />
+      <div onClick={signOut}>
+        <img
+          loading="lazy"
+          className="cursor-pointer h-12 w-12 rounded-full ml-2"
+          src={session?.user?.image}
+          //session.user.image will not work as fetching image is asynchronous.so we need to use optional chaining
+          //session?.user?.image
+          //still it not works b.c we need implement serversideProps
+          alt=""
+        />
+        <h2
+          className="text-gray-700 text-[16px] cursor-pointer"
+          onClick={signOut}
+        >
+          Sign Out
+        </h2>
+      </div>
     </header>
   );
 }
