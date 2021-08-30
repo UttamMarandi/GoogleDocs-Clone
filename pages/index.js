@@ -9,8 +9,10 @@ import ModalFooter from "@material-tailwind/react/ModalFooter";
 
 //nextAuth
 import { getSession, useSession } from "next-auth/client";
+import firebase from "firebase";
 //Hooks
 import { useState } from "react";
+import { db } from "../firebase";
 
 export default function Home() {
   const [session] = useSession();
@@ -22,12 +24,23 @@ export default function Home() {
   if (!session) return <Login />;
 
   // When user clicks Enter , run create document function
-  function createDocument() {}
+  function createDocument() {
+    //if the user has input no name , return
+    if (!input) return;
+
+    //add a document inside docs collection for the document which is epecific to users email within userDocs collection
+    db.collection("userDocs").doc(session.user.email).collection("docs").add({
+      fileName: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setInput("");
+    setShowModal(false);
+  }
   const modal = (
     <Modal
       size="sm" //size is smal
       active={showModal} //Modal depends on showModal value
-      toggler={() => setShowModal(false)} //on clicking outside or x , setShowModal to false, i.e close the modal.
+      toggler={() => setShowModal(false)} //on clicking outside of Modal or x , setShowModal to false, i.e close the modal.
     >
       {/* Create Modal Body */}
       <ModalBody>
@@ -52,7 +65,7 @@ export default function Home() {
         >
           Cancel
         </Button>
-        <Button color="blue" ripple="light" onClick={() => createDocument}>
+        <Button color="blue" ripple="light" onClick={createDocument}>
           Create
         </Button>
       </ModalFooter>
