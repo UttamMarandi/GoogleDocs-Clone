@@ -1,6 +1,6 @@
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
-import { signIn } from "next-auth/client";
+import { signin, signIn } from "next-auth/client";
 import Image from "next/image";
 
 function Login() {
@@ -8,17 +8,17 @@ function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Image
         src="/images/docs.png"
-        width="300"
-        height="300"
+        width="200"
+        height="200"
         objectFit="contain"
       />
-      <h2 className="font-semibold text-[50px] text-gray-700">Google Docs</h2>
+      <h2 className="font-semibold text-[40px]  text-gray-500">Google Docs</h2>
       <Button
-        className="px-10"
+        className="w-[150px] login-button mt-10"
         color="blue"
         buttonType="flled"
-        iconOnly={true}
         ripple="light"
+        onClick={signin}
       >
         Login
       </Button>

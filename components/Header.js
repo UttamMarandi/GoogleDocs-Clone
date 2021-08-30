@@ -1,7 +1,9 @@
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
+import { signIn, useSession } from "next-auth/client";
 
 function Header() {
+  const [session] = useSession();
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 py-2 shadow-md bg-white">
       <Button
@@ -38,7 +40,9 @@ function Header() {
       <img
         loading="lazy"
         className="cursor-pointer h-10 w-10 rounded-full ml-2"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Matt_Damon_TIFF_2015.jpg/800px-Matt_Damon_TIFF_2015.jpg"
+        src={session.user?.image}
+        //session.user.image will not work as fetching image is asynchronous.so we need to use optional chaining
+        //session.user?.image
         alt=""
       />
     </header>
