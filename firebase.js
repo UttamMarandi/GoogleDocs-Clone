@@ -13,7 +13,7 @@ const firebaseConfig = {
 //so we check for existance of app useing firebase.apps.length
 
 const app = !firebase.apps.length
-  ? firebase.initializeApp(firebaseCOnfig)
+  ? firebase.initializeApp(firebaseConfig)
   : firebase.app();
 
 const db = app.firestore();

@@ -2,11 +2,18 @@ import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import Head from "next/head";
 import Header from "../components/Header";
-import Image from "next/image";
+import Login from "../components/Login";
 
 //nextAuth
+import { getSession, useSession } from "next-auth/client";
 
 export default function Home() {
+  const [session] = useSession();
+  //useSession() tells if a user is logged in or not . undefined if not logged not in
+
+  //if session is false show Login page else show home page
+  if (!session) return <Login />;
+
   return (
     <div className="">
       <Head>
