@@ -22,9 +22,15 @@ function Doc() {
   //id is the variable name within [id] in file name
   //its present in router.query
 
-  const [snapshot] = useDocumentOnce(
+  const [snapshot, loadingSnapshot] = useDocumentOnce(
     db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
   );
+
+  //if snapShot is completly loaded i.e !loadingSnapshot and we dont have a snapshot.data.fileName , than redirect user to home page
+  //this can happen if user is logged in but trying to access somebody else document
+  if (!loadingSnapshot && !snapshot?.data()?.fileName) {
+    router.push("/");
+  }
 
   return (
     <div>
@@ -37,13 +43,44 @@ function Doc() {
           <Icon name="description" size="5xl" color="blue" />
           <Icon name="arrow_back" size="1xl" color="blue" />
         </span>
-        <div className="flex-grow">
+        <div className="flex-grow pl-5">
           {/* asunchronous so optional chaining */}
-          <h2>{snapshot?.data()?.fileName}</h2>
+          <h2 className="pt-1">{snapshot?.data()?.fileName}</h2>
+          <div className="flex items-center text-sm space-x-2  -ml-1 h-10 text-gray-600">
+            <p className="option">File</p>
+            <p className="option">Edit</p>
+            <p className="option">View</p>
+            <p className="option">Insert</p>
+            <p className="option">Format</p>
+            <p className="option">Tools</p>
+          </div>
         </div>
+        <Button
+          buttonType="filled"
+          size="regular"
+          className="hidden md:!inline-flex h-10"
+          rounded={false}
+          block={false}
+          iconOnly={false}
+          ripple="light"
+        >
+          <Icon name="people" size="md" color="white" />
+          SHARE
+        </Button>
+        <img
+          className="rounder-full cursor-pointer h-12 w-12"
+          src={session.user.image}
+          alt=""
+        />
       </header>
     </div>
   );
 }
 
 export default Doc;
+
+// Bug fix
+//filename not showing
+//solution
+//earilier : snapshot?.data?.filenName
+//now : snapshot?.data()?.fileName

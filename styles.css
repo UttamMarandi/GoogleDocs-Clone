@@ -1,0 +1,9 @@
+/* In order to use talwind in css file use tailwind components */
+/* In orfer to define own classes use layer components */
+@tailwind components;
+
+@layer components {
+  .option {
+    @apply cursor-pointer hover:bg-gray-100  duration-200 ease-out p-2 rounded-lg;
+  }
+}
