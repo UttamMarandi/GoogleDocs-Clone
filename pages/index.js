@@ -136,16 +136,14 @@ export default function Home() {
       {/* accessing snapshot is asynchronous so functional chaning 
       doc.data gives the fields for each document*/}
       <section>
-        {snapshot?.docs.map((doc) => {
-          return (
-            <DocumentRow
-              key={doc.id}
-              id={doc.id}
-              fileName={doc.data().fileName}
-              date={doc.data().timestamp}
-            />
-          );
-        })}
+        {snapshot?.docs.map((doc) => (
+          <DocumentRow
+            key={doc.id}
+            id={doc.id}
+            fileName={doc.data().fileName}
+            date={doc.data().timestamp}
+          />
+        ))}
       </section>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 } from "react-firebase-hooks/firestore";
 import { getSession, signOut, useSession } from "next-auth/client";
 import Login from "../../components/Login";
+import TextEditor from "../../components/TextEditor";
 
 function Doc() {
   const [session] = useSession();
@@ -73,11 +74,23 @@ function Doc() {
           alt=""
         />
       </header>
+      <TextEditor />
     </div>
   );
 }
 
 export default Doc;
+
+export async function getServerSideProps(context) {
+  // we need session , so that the user credential is loaded from the server , so that we dont have any latency issues
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 
 // Bug fix
 //filename not showing
