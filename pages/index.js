@@ -29,6 +29,7 @@ export default function Home() {
   //snapshot contains the realitme content of the doc/collection that we are trying to access from db
   //order by timestamp that we created while creating db and pushing the file name to db
 
+  // useCollection pulls the collection , useDocument pulls the document
   const [snapshot] = useCollectionOnce(
     db
       .collection("userDocs")
