@@ -14,10 +14,15 @@ import firebase from "firebase";
 //Hooks
 import { useState } from "react";
 import { db } from "../firebase";
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import {
+  useCollectionOnce,
+  useDocumentOnce,
+} from "react-firebase-hooks/firestore";
+import { useRouter } from "next/dist/client/router";
 
 export default function Home() {
   const [session] = useSession();
+  const router = useRouter();
   //useSession() tells if a user is logged in or not . undefined if not logged not in
 
   //if session is false show Login page else show home page
@@ -37,6 +42,9 @@ export default function Home() {
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
+  // const [snapshot] = useDocumentOnce(
+  //   db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
+  // );
 
   // When user clicks Enter , run createDocument function
   function createDocument() {
@@ -44,16 +52,22 @@ export default function Home() {
     if (!input) return;
 
     //add a document inside docs collection for the document which is epecific to users email within userDocs collection
-    db.collection("userDocs").doc(session.user.email).collection("docs").add({
-      fileName: input,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    db.collection("userDocs")
+      .doc(session.user.email)
+      .collection("docs")
+      .add({
+        fileName: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then((doc) => {
+        router.push(`/doc/${doc.id}`);
+      });
     setInput("");
     setShowModal(false);
   }
   const modal = (
     <Modal
-      size="sm" //size is smal
+      size="sm" //size is small
       active={showModal} //Modal depends on showModal value
       toggler={() => setShowModal(false)} //on clicking outside of Modal or x , setShowModal to false, i.e close the modal.
     >

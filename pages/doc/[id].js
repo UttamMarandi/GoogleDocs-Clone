@@ -27,6 +27,7 @@ function Doc() {
     db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
   );
 
+  console.log("snapshot id", snapshot?.data()?.fileName);
   //if snapShot is completly loaded i.e !loadingSnapshot and we dont have a snapshot.data.fileName , than redirect user to home page
   //this can happen if user is logged in but trying to access somebody else document
   if (!loadingSnapshot && !snapshot?.data()?.fileName) {
