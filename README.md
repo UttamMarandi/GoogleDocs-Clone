@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/public/uttam_logo.png" />
+  <img src="/public/images/docs_logo.PNG" />
 </p>
 
 # Google Docs : Clone
