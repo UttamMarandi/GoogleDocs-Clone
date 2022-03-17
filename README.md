@@ -1,29 +1,49 @@
-# Next.js + Tailwind CSS Example
+<p align="center">
+  <img src="/public/uttam_logo.png" />
+</p>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# Google Docs : Clone
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+Google Docs Clone built with NextJS, Firebase, Tailwind.
 
-## Preview
+# Stack
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+[NextJS](https://nextjs.org/docs/getting-started)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+[React](https://reactjs.org/docs/getting-started.html)
 
-## Deploy your own
+[Firebase](https://firebase.google.com/docs)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+[Tailwind](https://tailwindcss.com/docs/installation)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+[Firebase Hooks](https://github.com/CSFrequency/react-firebase-hooks/blob/master/firestore/README.md)
 
-## How to use
+# Preview : Link
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+[Google Docs Clone](https://uttam-marandi-portfolio.vercel.app/)
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+# Installation
+
+If you want to test the app by running it locally in PC, follow these instructions:
+1.Clone the repo:
+
+```
+git clone https://github.com/UttamMarandi/GoogleDocs-Clone.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+2.Install the packages :
+
+```
+yarn install
+```
+
+3.Start local server
+
+```
+yarn run dev
+```
+
+# Let's get to know each other
+
+If anyone wants to contact me or want to become friends let's connect.
+message me on [instagram](https://www.instagram.com/uttam.marandi_s/).
